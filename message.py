@@ -68,7 +68,81 @@ main_menu = {
         ],
         "spacing": "lg"
       }
+    },
+    {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "看FSM圖",
+            "weight": "bold",
+            "align": "center",
+            "size": "lg"
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "看圖",
+              "text": "image.show()"
+            },
+            "height": "md",
+            "color": "#00d13b",
+            "style": "primary"
+          }
+        ],
+        "spacing": "lg"
+      }
+    },
+  ]
+}
+state0_menu = {
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "回猴寶主選單",
+            "weight": "bold",
+            "align": "center",
+            "size": "lg"
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "確認",
+              "text": "回家嘍"
+            },
+            "height": "md",
+            "color": "#00d13b",
+            "style": "primary"
+          }
+        ],
+        "spacing": "lg"
+      }
     }
+
   ]
 }
 state1_menu = {

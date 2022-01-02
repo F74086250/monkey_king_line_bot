@@ -15,17 +15,29 @@ load_dotenv()
 user_id = []
 #state1:選擇看影片 state2:選擇看梗圖  state3:評論 state4:讚+回家 state5:倒讚+回家
 machine = TocMachine(
-    states=["user", "state1", "state2","state3","state4","state5"],
+    states=["user","state0", "state1", "state2","state3","state4","state5"],
     transitions=[
         {
             "trigger": "advance",
-            "source": "user",                                      #0 to 1
+            "source": "user",                                      #user to 0
+            "dest": "state0",
+            "conditions": "is_going_to_state0",
+        },
+        {
+            "trigger": "advance",
+            "source": "state0",                                      #0 to user
+            "dest": "user",
+            "conditions": "is_going_to_user",
+        },
+        {
+            "trigger": "advance",
+            "source": "user",                                      #user to 1
             "dest": "state1",
             "conditions": "is_going_to_state1",
         },
         {
             "trigger": "advance",
-            "source": "user",                                   # 0 to 2
+            "source": "user",                                   # user to 2
             "dest": "state2",
             "conditions": "is_going_to_state2",
         },

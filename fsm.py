@@ -159,7 +159,9 @@ class YoutubeSpider():
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
-
+    def is_going_to_state0(self, event):
+        text = event.message.text
+        return text.lower() == "image.show()" 
     def is_going_to_state1(self, event):
         text = event.message.text
         return text.lower() == "我要看最新影片"
@@ -187,7 +189,19 @@ class TocMachine(GraphMachine):
         return text.lower() == "再來點有料的"
     def is_going_to_user(self,event):
         text=event.message.text
-        return text.lower()=="下次一定" or text.lower()=="起飛囉"
+        return text.lower()=="下次一定" or text.lower()=="起飛囉" or text.lower()=="回家嘍"
+
+    def on_enter_state0(self, event):
+        id = event.source.user_id
+        main()
+        message_text = message.state0_menu
+        reply = FlexSendMessage("主選單", message_text)
+    
+        line_bot_api = LineBotApi( os.getenv('LINE_CHANNEL_ACCESS_TOKEN') )
+        #line_bot_api.push_message(id,TextSendMessage(text=video_title))
+        fsm_path="https://cdn.discordapp.com/attachments/927181929856520214/927188340141326397/fsm.png"
+        line_bot_api.push_message(id, ImageSendMessage(fsm_path , fsm_path))
+        line_bot_api.push_message(id,reply)
 
     def on_enter_state1(self, event):
         id = event.source.user_id
