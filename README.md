@@ -2,7 +2,12 @@
 
 為什麼會叫太消剛了猴寶"2"呢?因為原本的Line API在我測試時因為測試太多次導致用完本月次數上限，因此只好新創一個API了。
 
+
+
 ![image](https://user-images.githubusercontent.com/79431564/147877585-508ff645-59f1-4455-9318-e0c14c1bd07a.png)
+
+QR code:
+![image](https://qr-official.line.me/sid/L/868igqcy.png)
 
 設計動機與理念:由於本身偶爾會玩LOL，加上猴哥一直是我喜歡且常看的LOL遊戲主播之一，效果十足且遊戲技術很好，影片中也充滿許多笑料，因此就設計了這款包含了不少猴哥的影片中常常出現的梗的聊天機器人。
 
