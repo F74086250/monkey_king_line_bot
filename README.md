@@ -1,159 +1,24 @@
-# TOC Project 2020
+主題:猴哥聊天機器人<太消剛了猴寶2>
+![image](https://user-images.githubusercontent.com/79431564/147877585-508ff645-59f1-4455-9318-e0c14c1bd07a.png)
+設計動機與理念:由於本身偶爾會玩LOL，加上猴哥一直是我喜歡且常看的LOL遊戲主播之一，效果十足且遊戲技術很好，影片中也充滿許多笑料，因此就設計了這款包含了不少猴哥的影片中常常出現的梗的聊天機器人。
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/dc7fa47fcd809b99d087/maintainability)](https://codeclimate.com/github/NCKU-CCS/TOC-Project-2020/maintainability)
+FSM圖:![image](https://user-images.githubusercontent.com/79431564/147877691-c8875f46-2147-4917-9bbf-d84653aa7203.png)
+包含的元素:有用到line的內建的特殊回覆格式、以及網路爬蟲(爬youtube影片網址)、顯示圖片、播放音檔(Audio)、回覆文字等功能
+各個state介紹:
+user:初始的state，line bot啟動後按任意鍵就可以進入這個state，這邊可以選擇前往state0(顯示FSM圖片)、前往state1(機器人會丟給你猴哥影片頻道的最新影片連結)、前往state2(前往猴哥梗圖與語音包抽抽樂)
+![image](https://user-images.githubusercontent.com/79431564/147877808-f84bbb60-ef81-4dbc-9700-bafc5b42b71a.png)
 
-[![Known Vulnerabilities](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020/badge.svg)](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020)
+state0:顯示FSM圖片，可以按按鈕回猴寶主選單
+![image](https://user-images.githubusercontent.com/79431564/147877822-454a0584-eba5-4931-b854-dc8677ae03ae.png)
 
+state1:機器人會丟給你猴哥影片頻道的最新影片網址連結，可以選擇前往state2去抽抽樂或是前往state3去評論
+![image](https://user-images.githubusercontent.com/79431564/147877912-44a4257f-3a55-4ab1-b052-d4ac2ea113df.png)
 
-Template Code for TOC Project 2020
+state2:機器人會隨機抽給你猴哥的梗圖+猴哥語音包(有配套過的，一個梗圖都會搭配相對應的語音)，這時可以選擇前往state1去獲取最新影片連結、重複抽取梗圖(再回state2抽一次)、或是前往state3評論
+![image](https://user-images.githubusercontent.com/79431564/147877919-f040dfbf-adba-4d9a-90a4-a1d9dd57cb9c.png)
 
-A Line bot based on a finite state machine
-
-More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
-
-## Setup
-
-### Prerequisite
-* Python 3.6
-* Pipenv
-* Facebook Page and App
-* HTTPS Server
-
-#### Install Dependency
-```sh
-pip3 install pipenv
-
-pipenv --three
-
-pipenv install
-
-pipenv shell
-```
-
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
-
-
-#### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
-`LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-#### a. Ngrok installation
-* [ macOS, Windows, Linux](https://ngrok.com/download)
-
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-ngrok http 8000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-#### b. Servo
-
-Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
-
-
-## Finite State Machine
-![fsm](./img/show-fsm.png)
-
-## Usage
-The initial state is set to `user`.
-
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
-
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
-## Deploy
-Setting to deploy webhooks on Heroku.
-
-### Heroku CLI installation
-
-* [macOS, Windows](https://devcenter.heroku.com/articles/heroku-cli)
-
-or you can use Homebrew (MAC)
-```sh
-brew tap heroku/brew && brew install heroku
-```
-
-or you can use Snap (Ubuntu 16+)
-```sh
-sudo snap install --classic heroku
-```
-
-### Connect to Heroku
-
-1. Register Heroku: https://signup.heroku.com
-
-2. Create Heroku project from website
-
-3. CLI Login
-
-	`heroku login`
-
-### Upload project to Heroku
-
-1. Add local project to Heroku project
-
-	heroku git:remote -a {HEROKU_APP_NAME}
-
-2. Upload project
-
-	```
-	git add .
-	git commit -m "Add code"
-	git push -f heroku master
-	```
-
-3. Set Environment - Line Messaging API Secret Keys
-
-	```
-	heroku config:set LINE_CHANNEL_SECRET=your_line_channel_secret
-	heroku config:set LINE_CHANNEL_ACCESS_TOKEN=your_line_channel_access_token
-	```
-
-4. Your Project is now running on Heroku!
-
-	url: `{HEROKU_APP_NAME}.herokuapp.com/callback`
-
-	debug command: `heroku logs --tail --app {HEROKU_APP_NAME}`
-
-5. If fail with `pygraphviz` install errors
-
-	run commands below can solve the problems
-	```
-	heroku buildpacks:set heroku/python
-	heroku buildpacks:add --index 1 heroku-community/apt
-	```
-
-	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
-
-## Reference
-[Pipenv](https://medium.com/@chihsuan/pipenv-更簡單-更快速的-python-套件管理工具-135a47e504f4) ❤️ [@chihsuan](https://github.com/chihsuan)
-
-[TOC-Project-2019](https://github.com/winonecheng/TOC-Project-2019) ❤️ [@winonecheng](https://github.com/winonecheng)
-
-Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
-
-[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
+state3:可以評論，選擇讚或是倒讚，讚會前往state4,倒讚會前往state5
+![image](https://user-images.githubusercontent.com/79431564/147877924-56962380-6cd4-43ff-92b9-2426cf410d19.png)
+state4:因為剛剛按讚了，所以猴哥會傳好人一生平安，並且可以選擇回到猴寶的主選單
+![image](https://user-images.githubusercontent.com/79431564/147877985-f6075606-74bc-4ce5-977f-74d9002f8a5d.png)
+state5:因為剛剛按倒讚，所以猴哥生氣了，他會傳生氣的語音跟照片，這時可以選擇回猴寶主選單
