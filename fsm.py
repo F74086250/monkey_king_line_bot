@@ -199,7 +199,7 @@ class TocMachine(GraphMachine):
     
         line_bot_api = LineBotApi( os.getenv('LINE_CHANNEL_ACCESS_TOKEN') )
         #line_bot_api.push_message(id,TextSendMessage(text=video_title))
-        fsm_path="https://cdn.discordapp.com/attachments/927181929856520214/927188340141326397/fsm.png"
+        fsm_path="https://cdn.discordapp.com/attachments/927181929856520214/927191853005144094/fsm.png"
         line_bot_api.push_message(id, ImageSendMessage(fsm_path , fsm_path))
         line_bot_api.push_message(id,reply)
 
